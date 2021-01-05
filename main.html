@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="jquery-3.5.1.js"></script>
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Hanalei+Fill&display=swap" rel="stylesheet">
+    <script>
+
+        document.addEventListener("DOMContentLoaded",()=>{
+            const images = ["images/batman.jpg","images/blackpanther.jpg","images/blackwidow.jpg","images/captainamerica.jpg","images/captainmarvel.jpg",
+                "images/ironman.jpg","images/spiderman.jpg","images/theflash.jpg",
+                "images/batman.jpg","images/blackpanther.jpg","images/blackwidow.jpg","images/captainamerica.jpg","images/captainmarvel.jpg",
+                "images/ironman.jpg","images/spiderman.jpg","images/theflash.jpg"];
+            document.getElementsByTagName("input")[0].onclick = reset;
+
+
+            window.onload = display;
+
+            function display() {
+                $("img").each(function () {
+                    // default source(hide the images)
+                    $(this).attr("src", "images/cover.jpg");
+                });
+                for(let i=0;i<16;i++)
+                {
+                    blocks[i].setAttribute("id",i);
+                    blocks[i].addEventListener("click",show);
+                    images.sort(() => 0.5 - Math.random());
+                }
+
+
+            }
+
+            var correct = 0;
+
+            var blocks = document.getElementsByTagName("img");
+
+            var opened = [];
+            var guessedCorrect = [];
+            var guessed = 0;
+
+
+
+            function show()
+            {
+                opened.push(this);
+                this.removeEventListener("click",show);
+                this.src = images[this.id];
+                // if two blocks are opened
+                if(opened.length === 2) {
+                    opened[0].removeEventListener("click",show);
+                    opened[1].removeEventListener("click",show);
+                    if ((opened[0].src === opened[1].src)) {
+                        if(guessedCorrect.indexOf(opened[0])===-1) {
+                            guessedCorrect.push(opened[0]);
+                        }
+                        opened = [];
+
+                    } else {
+                        setTimeout(close, 300);
+                    }
+                }
+                if(guessedCorrect.length === 8)
+                {
+                    setTimeout(gameOver,300);
+                }
+            }
+
+            function gameOver()
+            {
+                alert("You found them all!");
+                reset();
+            }
+
+            function reset()
+            {
+                console.log("hello");
+                guessedCorrect = [];
+                display();
+            }
+
+            function close()
+            {
+                opened[0].addEventListener("click",show);
+                opened[1].addEventListener("click",show);
+                opened[0].setAttribute("src","images/cover.jpg");
+                opened[1].setAttribute("src","images/cover.jpg");
+
+                opened = [];
+            }
+        })
+
+    </script>
+    <style>
+        body{
+            background-image: url("images/galaxy.jpg");
+        }
+        td{
+            width: 250px;
+            height: 200px;
+        }
+        h1{
+            text-align: center;
+            font-size: 35px;
+            font-family: 'Hanalei Fill';
+            color: red;
+        }
+        img{
+            width: 250px;
+            height: 200px;
+        }
+        div{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+        table{
+            border-collapse: collapse;
+        }
+        td,tr{
+        }
+        input{
+            background-color: darkred;
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    </style>
+</head>
+<body>
+<h1>SUPERHERO MEMORY GAME</h1>
+<div style="text-align:left;">
+    <table>
+        <tr>
+            <td id="11"><img src=""/></td>
+            <td id="12"><img src=""/></td>
+            <td id="13"><img src=""/></td>
+            <td id="14"><img src=""/></td>
+        </tr>
+        <tr>
+            <td id="21"><img src=""/></td>
+            <td id="22"><img src=""/></td>
+            <td id="23"><img src=""/></td>
+            <td id="24"><img src=""/></td>
+        </tr>
+        <tr>
+            <td id="31"><img src=""/></td>
+            <td id="32"><img src=""/></td>
+            <td id="33"><img src=""/></td>
+            <td id="34"><img src=""/></td>
+        </tr>
+        <tr>
+            <td id="41"><img src=""/></td>
+            <td id="42"><img src=""/></td>
+            <td id="43"><img src=""/></td>
+            <td id="44"><img src=""/></td>
+        </tr>
+    </table>
+</div>
+<input type="submit" value="RESET"/>
+<span>&copy; Angel P.</span>
+<br/>
+</body>
