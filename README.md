@@ -1,6 +1,6 @@
 # memoryGame
 
-This is my first javascript project that I did for my final laboratory exericise at my faculty.
+This is my first javascript project that I did for my final laboratory exercise at my faculty.
 It's a memory game that matches two same photos.
 
 Game logic desc:
