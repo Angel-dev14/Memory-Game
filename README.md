@@ -1,4 +1,4 @@
-# memoryGame
+<h1>Memory Game</h1>
 
 This is my first javascript project that I did for my final laboratory exercise at my faculty.
 
